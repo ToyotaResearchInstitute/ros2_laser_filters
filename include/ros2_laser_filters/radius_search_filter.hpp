@@ -43,13 +43,13 @@
 #ifndef RADIUS_SEARCH_FILTER_H
 #define RADIUS_SEARCH_FILTER_H
 
-#include <filters/filter_base.h>
-#include <sensor_msgs/LaserScan.h>
+#include <ros2_laser_filters/filter_base.hpp>
+#include <sensor_msgs/msg/laser_scan.hpp>
 
 namespace laser_filters
 {
 
-class RadiusSearchFilter : public filters::FilterBase<sensor_msgs::LaserScan>
+class RadiusSearchFilter : public filters::FilterBase<sensor_msgs::msg::LaserScan>
 {
   public:
 
@@ -73,11 +73,11 @@ class RadiusSearchFilter : public filters::FilterBase<sensor_msgs::LaserScan>
 
   virtual ~RadiusSearchFilter();
 
-  bool configure();
+  bool configure() override;
 
   bool update(
-    const sensor_msgs::LaserScan& input_scan,
-    sensor_msgs::LaserScan& filtered_scan);
+    const sensor_msgs::msg::LaserScan& input_scan,
+    sensor_msgs::msg::LaserScan& filtered_scan);
 };
 
 }

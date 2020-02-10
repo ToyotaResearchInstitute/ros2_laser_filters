@@ -10,8 +10,7 @@
 
 #include <set>
 #include <math.h>
-#include <ros/ros.h>
-#include "laser_filters/radius_search_filter.h"
+#include "ros2_laser_filters/radius_search_filter.hpp"
 
 laser_filters::RadiusSearchFilter::RadiusSearchFilter(){
 }
@@ -35,8 +34,8 @@ bool laser_filters::RadiusSearchFilter::configure()
 }
 
 bool laser_filters::RadiusSearchFilter::update(
-    const sensor_msgs::LaserScan& input_scan,
-    sensor_msgs::LaserScan &output_scan)
+    const sensor_msgs::msg::LaserScan& input_scan,
+    sensor_msgs::msg::LaserScan &output_scan)
 {
   // copy input_scan data
   output_scan = input_scan;
