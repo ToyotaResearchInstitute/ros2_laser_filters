@@ -42,6 +42,7 @@
 #include "ros2_laser_filters/range_filter.hpp"
 #include "ros2_laser_filters/scan_shadows_filter.hpp"
 #include "ros2_laser_filters/box_filter.hpp"
+#include "ros2_laser_filters/radius_search_filter.hpp"
 
 
 class ScanToScanFilterChain : public rclcpp::Node
@@ -106,6 +107,13 @@ public:
     filters_.back()->configure(
         "scan_chain",
         "scan_shadows_filter",
+        get_node_logging_interface(),
+        get_node_parameters_interface());
+
+    filters_.push_back(std::make_shared<laser_filters::RadiusSearchFilter>());
+    filters_.back()->configure(
+        "scan_chain",
+        "radius_search_filter",
         get_node_logging_interface(),
         get_node_parameters_interface());
 

@@ -27,6 +27,7 @@ find_package(angles REQUIRED)
 add_executable(scan_filter_chain
   src/scan_filter_chain.cpp
   src/box_filter.cpp
+  src/radius_search_filter.cpp
 )
 target_include_directories(scan_filter_chain PRIVATE
   "include"
