@@ -91,9 +91,10 @@ public:
     tf2_ros::Buffer buffer(get_clock());
     tf_buffer_.setCreateTimerInterface(create_timer_interface);
 
-    // TODO(sloretz) QoS settings
+    rclcpp::SensorDataQoS sensor_qos;
+    sensor_qos.keep_last(1);
     scan_sub_ = std::make_shared<message_filters::Subscriber<sensor_msgs::msg::LaserScan>>(
-      this, "scan");
+      this, "scan", sensor_qos.get_rmw_qos_profile());
 
     tf_filter_ = std::make_shared<tf2_ros::MessageFilter<sensor_msgs::msg::LaserScan>>(
         *scan_sub_,
