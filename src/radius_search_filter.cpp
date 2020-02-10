@@ -8,8 +8,10 @@
  * created: 11/02/2016
  */
 
+#include <cmath>
+#include <limits>
 #include <set>
-#include <math.h>
+
 #include "ros2_laser_filters/radius_search_filter.hpp"
 
 laser_filters::RadiusSearchFilter::RadiusSearchFilter(){
@@ -44,7 +46,7 @@ bool laser_filters::RadiusSearchFilter::update(
   std::set<int> indices_to_delete;
 
   // traverse each point
-  for(int i= 0; i< input_scan.ranges.size(); i++)
+  for(size_t i= 0; i< input_scan.ranges.size(); i++)
   {
     // skip if the range of the point is NaN
     if(std::isnan(input_scan.ranges[i]))
@@ -65,9 +67,9 @@ bool laser_filters::RadiusSearchFilter::update(
 
       // skip out-of-bound points and the point itself
       // also skip if the range of the neighboring point is NaN
-      if( neighbor_index< 0 || 
-          neighbor_index >= (int)input_scan.ranges.size() ||
-          neighbor_index == i ||
+      if( neighbor_index< 0 ||
+          neighbor_index >= static_cast<int>(input_scan.ranges.size()) ||
+          neighbor_index == static_cast<int>(i) ||
           std::isnan(input_scan.ranges[neighbor_index]))
       {
         continue;
