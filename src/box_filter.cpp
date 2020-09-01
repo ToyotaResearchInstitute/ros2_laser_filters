@@ -111,6 +111,19 @@ bool laser_filters::LaserScanBoxFilter::configure(){
 
 }
 
+int getPointCloud2FieldIndex(
+  const sensor_msgs::msg::PointCloud2 & cloud,
+  const std::string & field_name)
+{
+  // Get the index we need
+  for (size_t d = 0; d < cloud.fields.size(); ++d) {
+    if (cloud.fields[d].name == field_name) {
+      return static_cast<int>(d);
+    }
+  }
+  return -1;
+}
+
 bool laser_filters::LaserScanBoxFilter::update(
     const sensor_msgs::msg::LaserScan& input_scan,
     sensor_msgs::msg::LaserScan &output_scan)
@@ -159,10 +172,10 @@ bool laser_filters::LaserScanBoxFilter::update(
     }
     return false;
   }
-  const int i_idx_c = sensor_msgs::getPointCloud2FieldIndex(laser_cloud, "index");
-  const int x_idx_c = sensor_msgs::getPointCloud2FieldIndex(laser_cloud, "x");
-  const int y_idx_c = sensor_msgs::getPointCloud2FieldIndex(laser_cloud, "y");
-  const int z_idx_c = sensor_msgs::getPointCloud2FieldIndex(laser_cloud, "z");
+  const int i_idx_c = getPointCloud2FieldIndex(laser_cloud, "index");
+  const int x_idx_c = getPointCloud2FieldIndex(laser_cloud, "x");
+  const int y_idx_c = getPointCloud2FieldIndex(laser_cloud, "y");
+  const int z_idx_c = getPointCloud2FieldIndex(laser_cloud, "z");
 
   if(i_idx_c == -1 || x_idx_c == -1 || y_idx_c == -1 || z_idx_c == -1){
       // TODO(sloretz) uncomment when https://github.com/ros2/rclcpp/pull/981 is released
