@@ -50,7 +50,6 @@
 #include <ros2_laser_filters/filter_base.hpp>
 
 #include "sensor_msgs/msg/laser_scan.hpp"
-#include <sensor_msgs/point_cloud_conversion.hpp>
 #include <laser_geometry/laser_geometry.hpp>
 
 #include <tf2/transform_datatypes.h>
